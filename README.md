@@ -37,3 +37,12 @@ ACS PUMS https://www.census.gov/programs-surveys/acs/data/pums.html
 
 IPEDS Dataset https://nces.ed.gov/ipeds/use-the-data
 
+## 5. Methodology
+
+Calculate the cost of a four year degree at the selected college:
+(Tuition * 4) - Scholarship/grants - Loan principal  + Total cost of the loan
+
+Calculate the total cost of a loan:
+principal + total interest over loan term 
+
+Calculate the average income for their selected major from the ACS PUMS data set
