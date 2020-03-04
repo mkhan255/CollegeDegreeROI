@@ -1,3 +1,3 @@
 # CollegeDegreeROI
 
-##Is your degree worth it? 
+#Is your degree worth it? 
