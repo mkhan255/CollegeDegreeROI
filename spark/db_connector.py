@@ -3,6 +3,7 @@ from configparser import ConfigParser
 
 config = ConfigParser()
 config.read(abspath('config.ini'))
+#read configuration file
 
 class Database(object):
 
