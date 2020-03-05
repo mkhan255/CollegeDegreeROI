@@ -25,13 +25,13 @@
 ## 3. Architecture
 
 Spark
-4 EC2 m5ad.2xlarge instances (1 master 3 slaves spark cluster)
+- 4 EC2 m5ad.2xlarge instances (1 master 3 slaves spark cluster)
 
 PostgreSQL
-1 EC2 m5ad.xlarge instance
+- 1 EC2 m5ad.xlarge instance
 
 Dash
-1 EC2 m5ad.large instance
+- 1 EC2 m5ad.large instance
 
 ## 4. DataSets
 
