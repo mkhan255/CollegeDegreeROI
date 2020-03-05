@@ -40,7 +40,8 @@ contains over 200 columns including the average income for over 160 college majo
 
 https://www.census.gov/programs-surveys/acs/data/pums.html
 
-IPEDS Dataset:
+IPEDS Dataset: Contains data on tution and fees for US colleges/universites
+
 https://nces.ed.gov/ipeds/use-the-data
 
 ## 5. Methodology
@@ -52,3 +53,5 @@ Calculate the total cost of a loan:
 principal + total interest over loan term 
 
 Calculate the average income for their selected major from the ACS PUMS data set
+
+
