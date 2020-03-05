@@ -37,7 +37,7 @@ for f in filenames_a:
 
     			 
 					major_and_wage.append(avg_wage.withColumn(f, avg_wage[f].cast(IntegerType())))
-					#make income into integer
+					#make income into integer and writes final dataframe into major_and_wage list
 					
 major_and_wage_resuts = major_and_wage[0]
 for df_next in major_and_wage[1:]:
