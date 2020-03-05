@@ -44,7 +44,7 @@ tuition_query = 'SELECT * FROM tuition WHERE name IS NOT NULL
                 OR "In District - Living With Family" 
                 OR "In State - Living With Family" 
                 OR "Out of State - Living With Family") IS NOT NULL'
-                #queries 'tuition table, and selects all rows where name is not a null value
+                #queries tuition table, and selects all rows where name is not a null value
                 #and at least one value pertaining to in-school residency in not null
                  
 tuition_df = pd.read_sql(tuition_query, con)
@@ -61,8 +61,7 @@ majors_income_df = pd.read_sql(majors_query, con)
 app.layout = html.Div(className="my-app",children=[ 
 #creates app layout using Dash HTML and CSS components
   
-        html.Div(
-                className="app-header", children=[
+        html.Div(className="app-header", children=[
                         html.Div('Is Your Degree Worth It?')
                         #Dash HTML component that creates the title 
                 
@@ -70,8 +69,7 @@ app.layout = html.Div(className="my-app",children=[
                         #Dash CSS component the centers and sizes the title
         
         
-        html.Div
-                (className="college-names-dropdown",children=[
+        html.Div(className="college-names-dropdown",children=[
                         dcc.Dropdown(id='college-dd',
                         #creates searchable dropdown menu for college names
             
@@ -85,8 +83,7 @@ app.layout = html.Div(className="my-app",children=[
                         #Dash CSS component the centers and sizes the dropdown menu
         
         
-        html.Div
-                (className="registration-dropdown", children=[
+        html.Div(className="registration-dropdown", children=[
                         dcc.Dropdown(id='in-school-residency-dd', 
                         #creates searchable dropdown menu for student's in-school residency status
                                      
@@ -177,69 +174,89 @@ app.layout = html.Div(className="my-app",children=[
         [dash.dependencies.Input(component_id='college-dd', component_property='selected_college')])
         #calls college dropdown menu and user selected college
       
-
 def set_residency_options(selected_college):
-  #function that creates the option for the in-school reresidency dropdown menu 
+  #function that creates the options for the in-school reresidency dropdown menu 
         
-                select_college_df = tuition_df[tuition_df['name'] == selected_college]
+        select_college_df = tuition_df[tuition_df['name'] == selected_college]
                
-                # matches selection from college-dd to the name column in the tuition_df dataframe, 
-                # then stores all the information for just the selected college into new dataframe
+        # matches selection from college-dd to the name column in the tuition_df dataframe, 
+        # then stores all the information for just the selected college into new dataframe
         
-                return[{'label': i, 'value': i} for i in select_college_df.drop(['name'], axis=1)]
+        return[{'label': i, 'value': i} for i in select_college_df.drop(['name'], axis=1)]
                 
-                '''Sets the values for in-school-residency-dd menu, excluding the name column.
-                Beacuse in-school-residency-dd menu is dependent on college-dd menu, 
-                this must happen in a callbacks opposed too when the in-school-residency-dd was initailly created'''
+        '''Sets the values for in-school-residency-dd menu, excluding the name column.
+        Beacuse in-school-residency-dd menu is dependent on college-dd menu, 
+        this must happen in a callbacks opposed too when the in-school-residency-dd was initailly created'''
 
+      
+      
+      
 @app.callback(
-    dash.dependencies.Output(component_id='majors-dd-output-container', component_property='children'),
-    
-    [dash.dependencies.Input(component_id='majors-dd', component_property='value'),
+        dash.dependencies.Output(component_id='majors-dd-output-container', component_property='children'),
+        #stores the result of function output_income in majors-dd-output-container
+  
+        [dash.dependencies.Input(component_id='majors-dd', component_property='value'),
      
-     dash.dependencies.Input(component_id='button', component_property='n_clicks')]
-    ) #
+        dash.dependencies.Input(component_id='button', component_property='n_clicks')]
+        ) #
 
-def update_output(selected_major, n_clicks):
+def output_income(selected_major, n_clicks):
   #function that outputs the average income for the selected colleg major if the submit button has been clicked
   
-    sel_major_df = majors_income_df[majors_income_df['major'] == selected_major]
-    # matches selection from majors-dd to the major column in the majors_income_df dataframe, 
-    # then stores just the information for the selected major in a new datafram
+        sel_major_df = majors_income_df[majors_income_df['major'] == selected_major]
+        # matches selection from majors-dd to the major column in the majors_income_df dataframe, 
+        # then stores just the information for the selected major in a new datafram
     
-    sel_major_income = (sel_major_df['wagp_2018'])
-    #removes major column from dataframe and stores just the average income in new dataframe
+        sel_major_income = (sel_major_df['wagp_2018'])
+        #removes major column from dataframe and stores just the average income in new dataframe
     
-    sel_major_income_list =  (sel_major_income.values.tolist())
-    #write sel_major_income value to list to remove dataframe index from output
+        sel_major_income_list =  (sel_major_income.values.tolist())
+        #write sel_major_income value to list to remove dataframe index from output
     
-    string_income = str(sel_major_income_list)[1:-1]
-    #store sel_major_income_list value as a string to remove brackets from output
+        string_income = str(sel_major_income_list)[1:-1]
+        #store sel_major_income_list value as a string to remove brackets from output
     
-    float_income = float(string_income)
-    #takes string and stores it as a float
+        float_income = float(string_income)
+        #takes string and stores it as a float
     
-    final_income = "{:,}".format(float_income)
-    #adds commas for user readability
+        final_income = "{:,}".format(float_income)
+        #adds commas for user readability
     
     if n_clicks is None:
         raise PreventUpdate
         #prevents any output if button has not been clicked
+    
     else:
         return 'The Average Income for Your Major is ${}'.format(final_income)
          #outputs message with final_income if button has been clicked
         
 @app.callback(
-    dash.dependencies.Output(component_id='degree-cost', component_property='children'),
+    
+  dash.dependencies.Output(component_id='degree-cost-container', component_property='children'),
+    #stores the result of function output_income in degree-cost-ontainer
+  
     [dash.dependencies.Input(component_id='college-dd', component_property='selected_college'),
+    #calls college dropdown menu and user selected college
+     
     dash.dependencies.Input(component_id='in-school-residency-dd', component_property='selected_residency'),
+    #calls in-school reresidency dropdown menu user selected option
+     
     dash.dependencies.Input(component_id="loan-principal-input", component_property="principal_input"),
+    #calls loan principal input feild and input value
+     
     dash.dependencies.Input(component_id="interest-input", component_property="interest_input"),
+    #calls loan interest input feild and input value
+     
     dash.dependencies.Input(component_id="loan-term-input", component_property="term_input"), 
+    #calls loan term input feild and input value
+     
     dash.dependencies.Input(component_id"scholarships", component_property="scholarship_input"),
+    #calls scholarships input feild and input value
+     
     dash.dependencies.Input(component_id='button', component_property='n_clicks')
-])
-def set_cities_value(selected_country, selected_residency, principal_input, interest_input, term_input, scholarship_input, n_clicks):
+])  #calls the submit button and th number of clicks it has recieved
+
+def output_degree_cost(selected_country, selected_residency, principal_input, interest_input, term_input, scholarship_input, n_clicks):
     sel_college_tuition = tuition_df[tuition_df['name'] == selected_country]
     sel_residency_tution = sel_college_tuition[selected_residency]
     
