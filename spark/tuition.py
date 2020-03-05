@@ -1,19 +1,24 @@
 from db_connector import Database
 from . import spark
 
-from utils import config, s3, s3_resource
-
 from pyspark.sql import SQLContext
 from pyspark.sql.types import *
+import boto3
 
+config = ConfigParser()
+config.read(abspath('config.ini'))
+#read configuration file
 
+s3 = boto3.client('s3')
+s3_resource = boto3.resource('s3')
+#uses boto3 to read from AWS S3
 
 def save_tuition()
 #function that saves retrieves college tution csv from AWS S3 and saves it into Postgresql database
 
         ipeds_bucket = config.get('AWS', 'ipeds_bucket')
         tuition_csv = config.get('AWS', 'tuition_csv')
-        # retrieve data from S3 bucket
+        #retrieve data from S3 bucket
         
         tuition_df = spark.read.csv("s3a://{}/{}".format(ipeds_bucket, tuition_csv) header='true', inferSchema='true')
         #read the csv file and store it in a dataframe
