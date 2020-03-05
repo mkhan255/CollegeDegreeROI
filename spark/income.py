@@ -1,10 +1,6 @@
 import files
-rom db_connector import Database
-# initializes spark session locally, should import __init__.py instead
-from pyspark.context import SparkContext
-from pyspark.sql.session import SparkSession
-sc = SparkContext('local')
-spark = SparkSession(sc)
+from db_connector import Database
+from . import spark
 
 from pyspark.sql import SQLContext
 from pyspark.sql.types import *
