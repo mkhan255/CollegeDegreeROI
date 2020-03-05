@@ -9,7 +9,7 @@ import * from files
 
 s3 = boto3.client('s3')
 s3_resource = boto3.resource('s3')
-
+#uses boto3 to read from AWS S3
 
 
 major_and_wage = []
