@@ -35,15 +35,15 @@ con = create_engine(url)
 
 
 tuition_query = 'SELECT * FROM tuition WHERE name IS NOT NULL 
-                AND WHERE ("In District - Living on Campus"  
-                OR "In State - Living on Campus" 
-                OR "Out of State - Living on Campus" 
-                OR "In District - Living off Campus" 
-                OR "In State - Living off Campus" 
-                OR "Out of State - Living off Campus"  
-                OR "In District - Living With Family" 
-                OR "In State - Living With Family" 
-                OR "Out of State - Living With Family") IS NOT NULL'
+                AND WHERE ("In District - Living on Campus" IS NOT NULL
+                OR "In State - Living on Campus" IS NOT NULL
+                OR "Out of State - Living on Campus" IS NOT NULL
+                OR "In District - Living off Campus" IS NOT NULL
+                OR "In State - Living off Campus" IS NOT NULL
+                OR "Out of State - Living off Campus" IS NOT NULL 
+                OR "In District - Living With Family" IS NOT NULL 
+                OR "In State - Living With Family" IS NOT NULL
+                OR "Out of State - Living With Family" IS NOT NULL)'
                 #queries tuition table, and selects all rows where name is not a null value
                 #and at least one value pertaining to in-school residency in not null
                  
@@ -51,7 +51,9 @@ tuition_df = pd.read_sql(tuition_query, con)
 #saves tuition_query into a pandas dataframe
 
 
-majors_query = 'SELECT major, wagp_2018 FROM income WHERE major is NOT NULL AND wagp_2018 is NOT NULL'
+majors_query = 'SELECT major, wagp_2018 FROM income 
+                WHERE major is NOT NULL 
+                AND wagp_2018 is NOT NULL'
 #queries income table and selects the major and wagp_2018 columns, excluding all null values
 
 majors_income_df = pd.read_sql(majors_query, con)
