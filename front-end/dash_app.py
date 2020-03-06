@@ -21,11 +21,11 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 #initializes dash app
 
 
-user = '**********'
+user = ''
 password = ''
-host = '**********'
+host = ''
 port = '5432'
-db = '***********'
+db = ''
 url = 'postgresql://{}:{}@{}:{}/{}'.format(user, password, host, port, db)
 #connects to postgresql database using user credentials
 
