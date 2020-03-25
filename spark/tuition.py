@@ -14,7 +14,7 @@ s3_resource = boto3.resource('s3')
 #uses boto3 to read from AWS S3
 
 def save_tuition()
-#function that saves retrieves college tution csv from AWS S3 and saves it into Postgresql database
+#function that retrieves college tution csv from AWS S3 and saves it into Postgresql database
 
         ipeds_bucket = config.get('AWS', 'ipeds_bucket')
         tuition_csv = config.get('AWS', 'tuition_csv')
