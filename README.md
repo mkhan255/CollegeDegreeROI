@@ -25,13 +25,13 @@
 ## 3. Architecture
 
 Spark
-- 4 EC2 m5ad.2xlarge instances (1 master 3 slaves spark cluster)
+- 4 EC2 m4.large instances (1 master 3 slaves spark cluster)
 
 PostgreSQL
-- 1 EC2 m5ad.xlarge instance
+- 1 EC2 m4.large instance
 
 Dash
-- 1 EC2 m5ad.large instance
+- 1 EC2 t2.micro instance
 
 ## 4. DataSets
 
@@ -46,12 +46,24 @@ https://nces.ed.gov/ipeds/use-the-data
 
 ## 5. Methodology
 
-Calculate the cost of a four year degree at the selected college:
-(Tuition * 4) - Scholarship/grants - Loan principal  + Total cost of the loan
+- Use Spark to calculate average income by major from the ACS PUMS data set, join all the tables, 
+and store data in Postgres database
 
-Calculate the total cost of a loan:
-principal + total interest over loan term 
+- Use Spark to clean IPEDS Dataset and store data in Postgres database
 
-Calculate the average income for their selected major from the ACS PUMS data set
+- Use Dash to build front end and calculate the following based on user inputs:
+       
+        Total cost of a loan:
+        principal + total interest over loan term 
+        
+        Cost of a four year degree at the selected college:
+        (Tuition * 4) - Scholarship/grants - Loan principal  + Total cost of the loan
+
+## 6. Outcome
+
+The app is live and can be accessed at http://predictiveanalytics.me
+
+
+
 
 
